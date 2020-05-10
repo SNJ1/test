@@ -1,8 +1,16 @@
 sudo: required
 services:
-    -docker
-
+  - docker
     
 script:
   - docker build -t snj01/node .
   - docker images snj01/node
+
+before_deploy:
+  - docker login -u snj01 -p Ringogwiazd-/01
+  
+deploy:
+  provider: script
+  script: docker push snj01/node
+  on:
+    branch: master  
